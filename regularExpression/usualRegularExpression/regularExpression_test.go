@@ -1,7 +1,6 @@
-package testing
+package usualRegularExpression
 
 import (
-	"golang-coding/regularExpression/usualRegularExpression"
 	"testing"
 )
 
@@ -17,28 +16,10 @@ func TestVerify(t *testing.T) {
 		//{"nDigitalNumbers", "N位数字", "dfjk14234sklfjl12fjewe3456778", []string{"3", "5"}},
 	}
 	for _, test := range regularExpressionTest {
-		actual := usualRegularExpression.Verify(test.types, test.annotation, test.verifyString, test.ran)
-		if StringSliceEqual(actual,test.expected){
+		actual := Verify(test.types, test.annotation, test.verifyString, test.ran)
+		if !StringSliceEqual(actual,test.expected){
 			t.Errorf("Verfiy(%s) according to %s;get %s but expected %s",test.verifyString,test.annotation,actual,test.expected)
-
 		}
 	}
 }
 
-func StringSliceEqual(a, b []string) bool {
-	if len(a) != len(b) {
-		return false
-	}
-
-	if (a == nil) != (b == nil) {
-		return false
-	}
-
-	for i, v := range a {
-		if v != b[i] {
-			return false
-		}
-	}
-
-	return true
-}
