@@ -45,9 +45,9 @@ func (re RegularExpression) VerifyExpression(str string) (interface{}, error) {
 		}
 	//	中文验证
 	case "chinese":
-		if len(re.Range)==0{
+		if len(re.Range) == 0 {
 			compile, e := regexp.Compile(fmt.Sprintf("%s", "[\u4e00-\u9fa5]+"))
-			if e != nil{
+			if e != nil {
 				return nil, e
 			}
 			return compile.FindAllString(str, -1), nil
@@ -56,11 +56,11 @@ func (re RegularExpression) VerifyExpression(str string) (interface{}, error) {
 			return nil, errors.New("范围错误,wrong Range")
 		}
 
-		if  re.Range[1] == re.Range[0]{
+		if re.Range[1] == re.Range[0] {
 			compile, e := regexp.Compile(fmt.Sprintf("%s{%s}", "[\u4e00-\u9fa5]", re.Range[0]))
-			if e != nil{
-			return nil, e
-		}
+			if e != nil {
+				return nil, e
+			}
 			return compile.FindAllString(str, -1), nil
 		}
 		if re.Range[1] == "" || re.Range[1] < re.Range[0] {
