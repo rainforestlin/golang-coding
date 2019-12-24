@@ -13,7 +13,10 @@ func TestVerify(t *testing.T) {
 		expected     []string
 	}{
 		{"AnyNumbers", "任意数字", "adadsjkl123", []string{},[]string{"123"}},
-		//{"nDigitalNumbers", "N位数字", "dfjk14234sklfjl12fjewe3456778", []string{"3", "5"}},
+		{"nDigitalNumbers", "N位数字", "dfjk14234sklfjl12fjewe3456778", []string{"3", "5"},[]string{"14234","34567"}},
+		{"chinese", "中文", "my name is Julian Lee, chinese name 李俊霖", []string{},[]string{"李俊霖"}},
+
+
 	}
 	for _, test := range regularExpressionTest {
 		actual := Verify(test.types, test.annotation, test.verifyString, test.ran)
