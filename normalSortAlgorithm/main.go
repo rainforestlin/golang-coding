@@ -7,7 +7,7 @@ func main()  {
 	//BubbleSort(arr)
 	//SelectionSort(arr)
 	//InsertionSort(arr)
-	//MergeSort(arr)
-	QuickSort(arr)
+	MergeSort(arr)
+	//QuickSort(arr)
 	fmt.Print(arr)
 }

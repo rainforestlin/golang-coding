@@ -1,7 +1,5 @@
 package main
 
-import "fmt"
-
 //冒泡排序
 //最差时间复杂度O(n^2)，最好时间复杂度O(n)，平均时间复杂度O(n^2)
 //空间复杂度O(1)
@@ -14,8 +12,8 @@ func BubbleSort(arr []int) {
 		x = x + 1
 		swapped = false
 		for i := 0; i < arrLen-1; i++ {
-			fmt.Printf("第%d轮-第%d次：%v", x, i, arr)
-			fmt.Println()
+			//fmt.Printf("第%d轮-第%d次：%v", x, i, arr)
+			//fmt.Println()
 			if arr[i] > arr[i+1] {
 				arr[i], arr[i+1] = arr[i+1], arr[i]
 				swapped = true
@@ -38,8 +36,8 @@ func SelectionSort(arr []int) {
 			}
 		}
 		arr[minIndex], arr[i] = arr[i], arr[minIndex]
-		fmt.Printf("第%d次：%v", i, arr)
-		fmt.Println()
+		//fmt.Printf("第%d次：%v", i, arr)
+		//fmt.Println()
 	}
 }
 
@@ -59,8 +57,8 @@ func InsertionSort(arr []int) {
 				break
 			}
 		}
-		fmt.Printf("第%d次：%v", i, arr)
-		fmt.Println()
+		//fmt.Printf("第%d次：%v", i, arr)
+		//fmt.Println()
 	}
 }
 
