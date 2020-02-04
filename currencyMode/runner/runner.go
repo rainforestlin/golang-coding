@@ -24,7 +24,7 @@ var ErrInterrupt = errors.New("received interruption")
 //返回一个新的Runner
 func New(d time.Duration) *Runner {
 	return &Runner{
-		interrupt: make(chan os.Signal),
+		interrupt: make(chan os.Signal,1),
 		complete:  make(chan error),
 		timeout:   time.After(d),
 	}
@@ -39,11 +39,13 @@ func (r *Runner) Start() error {
 	go func() {
 		r.complete <- r.run()
 	}()
+
 	select {
 	case err:= <-r.complete:
 		return err
 	case <-r.timeout:
 		return ErrTimeout
+
 	}
 }
 
@@ -64,6 +66,5 @@ func (r *Runner) gotInterrupt() bool {
 		return true
 	default:
 		return false
-
 	}
 }
