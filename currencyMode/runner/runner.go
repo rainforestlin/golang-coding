@@ -11,24 +11,29 @@ type Runner struct {
 	//终端信号。
 	interrupt chan os.Signal
 	//处理任务完成通道
-	complete  chan error
+	complete chan error
 	//时间间隔
-	timeout   <-chan time.Time
+	timeout <-chan time.Time
 	//函数切片
-	tasks     []func(int)
+	tasks []func(int)
 }
+
 //超时提醒
 var ErrTimeout = errors.New("received timeout")
+
 //终端提醒
 var ErrInterrupt = errors.New("received interruption")
+
 //返回一个新的Runner
 func New(d time.Duration) *Runner {
 	return &Runner{
-		interrupt: make(chan os.Signal,1),
+		//如果没有加入缓冲区则中断通道不起效
+		interrupt: make(chan os.Signal, 1),
 		complete:  make(chan error),
 		timeout:   time.After(d),
 	}
 }
+
 //新增任务进入Runner
 func (r *Runner) Add(tasks ...func(int)) {
 	r.tasks = append(r.tasks, tasks...)
@@ -41,7 +46,7 @@ func (r *Runner) Start() error {
 	}()
 
 	select {
-	case err:= <-r.complete:
+	case err := <-r.complete:
 		return err
 	case <-r.timeout:
 		return ErrTimeout
