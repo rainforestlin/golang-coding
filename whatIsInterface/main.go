@@ -38,7 +38,7 @@ func (S Swift) Fly() bool {
 	return S.IsFlyable
 }
 
-func (S *Swift) LearnToFly() bool {
+func (S Swift) LearnToFly() bool {
 	S.IsFlyable = true
 	return S.IsFlyable
 }
@@ -68,7 +68,15 @@ func VerifyIsFlyable(i Flyable) Flyable {
 		} else {
 			fmt.Println("May be she is too young")
 		}
-
+	case Swift:
+		if i.(Swift).IsFlyable {
+			fmt.Println("Swift is the most fast flying speed bird in the world")
+		} else {
+			fmt.Println("May be she is too young")
+		}
+	//	因为Dog实现的时候使用了指针接收者，所以无法使用值传递
+	//case Dog:
+	//	fmt.Println("Dog can't fly forever")
 	}
 	return i
 }
@@ -98,12 +106,20 @@ func main() {
 	newBornDog := Dog{Name: "Linlin", IsFlyable: false, CanSwim: true}
 	flyable = &newBornDog
 	if able, ok := VerifyIsFlyable(flyable).(*Dog); ok {
-		fmt.Println("can her fly?", able.IsFlyable)
+		fmt.Println("can him fly?", able.IsFlyable)
 	} else {
 		panic("interface assertion error")
 	}
 	grownUpDog := MakeItLearn(&newBornDog)
 	if able, ok := VerifyIsFlyable(grownUpDog).(*Dog); ok {
+		fmt.Println("can him fly?", able.IsFlyable)
+	} else {
+		panic("interface assertion error")
+	}
+
+	newBornSwift = Swift{Name: "Minmin2", IsFlyable: false, CanSwim: false}
+	flyable = newBornSwift
+	if able, ok := VerifyIsFlyable(flyable).(Swift); ok {
 		fmt.Println("can her fly?", able.IsFlyable)
 	} else {
 		panic("interface assertion error")
