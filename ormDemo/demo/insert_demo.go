@@ -22,4 +22,3 @@ func Insert2Language(languages []model.Language) {
 		}
 	}
 }
-

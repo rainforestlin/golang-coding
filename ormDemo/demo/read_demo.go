@@ -10,14 +10,20 @@ func GetAllLanguages() (languages []model.Language) {
 	return
 }
 
-func GetUser(name string) (user model.User) {
+func GetUser(maps interface{}) (user model.User) {
 	db := model.GetDB()
-	db.Model(user).Where("name = ?", name).First(&user)
+	db.Model(user).Where(maps).First(&user)
 	return
 }
 
 func RelatedLanguage2User(user *model.User) (languages []model.Language) {
 	db := model.GetDB()
 	db.Model(&user).Related(&languages, "Languages")
+	return
+}
+
+func RelatedLanguage2UserFirst(user *model.User) (language model.Language) {
+	db := model.GetDB()
+	db.Model(&user).Related(&model.Language{}, "Languages").First(&language)
 	return
 }
