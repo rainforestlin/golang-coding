@@ -12,7 +12,7 @@ func GetAllLanguages() (languages []model.Language) {
 
 func GetUser(maps interface{}) (user model.User) {
 	db := model.GetDB()
-	db.Model(user).Where(maps).First(&user)
+	db.Where(maps).First(&user)
 	return
 }
 
