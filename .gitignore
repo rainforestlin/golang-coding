@@ -5,3 +5,6 @@ whatIsInterface/.idea
 SSL_gen/.idea
 httpDemo/.idea
 encryption/.idea
+rabbitmqDemo/.idea
+*.ini
+*.ini
