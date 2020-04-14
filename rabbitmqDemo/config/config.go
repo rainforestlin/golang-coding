@@ -32,7 +32,7 @@ func loadRabbitMQ() {
 		log.Fatalf("failed to parse 'RabbitMQ: %v'", err)
 	}
 	RabbitMQ = &RabbitMQInfo{
-		Url:      sec.Key("RabbitMQ_Url").String(),
+		Url:      sec.Key("RabbitMQ_URL").String(),
 		Port:     sec.Key("RabbitMQ_Port").MustString("5672"),
 		User:     sec.Key("RabbitMQ_User").String(),
 		Password: sec.Key("RabbitMQ_Pass").String(),
