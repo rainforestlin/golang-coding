@@ -82,10 +82,11 @@ func main() {
 				msg.ReplyTo,
 				false,
 				false,
-				amqp.Publishing{ContentType: "text/plain",
+				amqp.Publishing{
+					ContentType:   "text/plain",
 					CorrelationId: msg.CorrelationId,
-					Body: []byte(strconv.FormatInt(response, 10),
-					)},
+					Body:          []byte(strconv.FormatInt(response, 10)),
+				},
 			)
 			failOnError(err, "failed to publish a message")
 			msg.Ack(false)
