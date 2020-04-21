@@ -196,9 +196,9 @@ func stringfy(node *Node, level int) {
 		}
 		format += "---[ "
 		level++
-		stringfy(node.left, level)
-		fmt.Printf(format+"%t\n", node.value)
 		stringfy(node.right, level)
+		fmt.Printf(format+"%d\n", node.key)
+		stringfy(node.left, level)
 	}
 }
 
