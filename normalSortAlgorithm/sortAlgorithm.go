@@ -57,8 +57,30 @@ func InsertionSort(arr []int) {
 				break
 			}
 		}
-		//fmt.Printf("第%d次：%v", i, arr)
-		//fmt.Println()
+	}
+}
+
+func InsertionSortWithoutExchange(arr []int) {
+	arrLen := len(arr)
+	for i := 1; i < arrLen; i++ {
+		selected := arr[i]
+		var j int
+		for j = i - 1; j >= 0 && arr[j] > selected; j-- {
+			arr[j+1] = arr[j]
+		}
+		arr[j+1] = selected
+	}
+}
+
+//希尔排序
+
+func ShellSort(arr []int) {
+	for step := len(arr) / 2; step > 0; step /= 2 {
+		for i := step; i < len(arr); i++ {
+			for j := i - step; j >= 0 && arr[j+step] < arr[j]; j -= step {
+				arr[j], arr[j+step] = arr[j+step], arr[j]
+			}
+		}
 	}
 }
 
