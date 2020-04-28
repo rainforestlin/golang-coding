@@ -129,34 +129,38 @@ func merge(a, b []int) []int {
 //最好时间复杂度O(nlogn)，最差时间复杂度O(n^2)，平均时间复杂度O(nlogn)
 //空间复杂度为O(logn)~O(n)
 //快速排序是一种不稳定的排序算法
-func QuickSort(arr []int) {
-	sort(arr, 0, len(arr)-1)
+func NormalQuickSort(arr []int) {
+	normalQuickSort(arr, 0, len(arr)-1)
 }
-func sort(arr []int, left, right int) {
-	if right <= left {
-		return
-	}
-	key := arr[(left+right)/2]
-	i := left
-	j := right
-	for i <= j {
-		for arr[i] < key {
-			i++
-		}
-		for arr[j] > key {
-			j--
-		}
-		if i <= j {
-			arr[i], arr[j] = arr[j], arr[i]
-			i++
-			j--
-		}
-		if left < j {
-			sort(arr, left, j)
-		}
-		if right > i {
-			sort(arr, i, right)
-		}
-	}
 
+func normalQuickSort(arr []int, begin, end int) {
+	if begin < end {
+		//	进行切分
+		loc := partition(arr, begin, end)
+		//	对左边进行快排
+		normalQuickSort(arr, begin, loc-1)
+		//	对右边进行快排
+		normalQuickSort(arr, loc+1, end)
+	}
+}
+func partition(arr []int, begin, end int) (loc int) {
+	// 将arr[begin]作为基准数
+	loc = begin + 1
+	j := end
+	for loc < j {
+		// 与基准数进行比较
+		if arr[loc] > arr[begin] {
+			// 交换，将比基准数大的数往右边挪
+			arr[loc], arr[j] = arr[j], arr[loc]
+			j--
+		} else {
+			loc++
+		}
+	}
+	// 当挑出循环的时候，loc+1:end比基准数大，begin+1:loc-1比基准数小
+	if arr[loc] >= arr[begin] {
+		loc--
+	}
+	arr[begin], arr[loc] = arr[loc], arr[begin]
+	return
 }
