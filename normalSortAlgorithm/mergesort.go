@@ -17,6 +17,17 @@ func mergeSortUpToDown(s, aux []int, lo, hi int) {
 	}
 }
 
+func MergeSortDownToUp(s []int) {
+	aux := make([]int, len(s))
+	n := len(s)
+	for length := 1; length < n; length *= 2 {
+		for low := 0; low < n-length; low += 2 * length {
+			Merge(s, aux, low, low+length-1, min(low+2*length-1, n-1))
+		}
+	}
+
+}
+
 //归并操作
 func Merge(s, aux []int, low, mid, high int) {
 	for k := low; k <= high; k++ {
@@ -39,4 +50,11 @@ func Merge(s, aux []int, low, mid, high int) {
 			i++
 		}
 	}
+}
+
+func min(i, j int) int {
+	if i > j {
+		return j
+	}
+	return i
 }
