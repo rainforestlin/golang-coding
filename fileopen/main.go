@@ -13,7 +13,7 @@ func main() {
 }
 
 func readFromFile() {
-	fileObj, err := os.Open("main.go")
+	fileObj, err := os.Open("crawl.go")
 	if err != nil {
 		fmt.Printf("open file err:%v \n", err)
 	}
@@ -28,7 +28,7 @@ func readFromFile() {
 }
 
 func readFromFileByBuff() {
-	fileObj, err := os.Open("main.go")
+	fileObj, err := os.Open("crawl.go")
 	if err != nil {
 		fmt.Printf("open file err:%v \n", err)
 	}
@@ -51,7 +51,7 @@ func readFromFileByBuff() {
 }
 
 func readFromFileByIO() {
-	ret, err := ioutil.ReadFile("./main.go")
+	ret, err := ioutil.ReadFile("./crawl.go")
 	if err != nil {
 		fmt.Printf("%v", err)
 	}
