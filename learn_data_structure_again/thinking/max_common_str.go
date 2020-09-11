@@ -7,7 +7,7 @@ func getCommon(a, b string) string {
 	column := len(aArray)
 
 	var commonArray = make([][]int, row+1)
-
+	//初始化二维切片
 	for i := 0; i < len(commonArray); i++ {
 		commonArray[i] = make([]int, column+1)
 	}
