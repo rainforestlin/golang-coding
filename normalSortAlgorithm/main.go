@@ -1,15 +1,12 @@
 package main
 
-import "fmt"
-
-func main()  {
-	unsored := []int{1,2,4,5,1,6,980,34,23,65,345,76}
-	NormalQuickSort(unsored)
-	fmt.Println(unsored)
-	////BubbleSort(arr)
-	////SelectionSort(arr)
-	////InsertionSort(arr)
-	//InsertionSortWithoutExchange(unsorted)
-	////QuickSort(arr)
+func main() {
+	g := NewGraph(8)
+	g.addVertex(2, 1)
+	g.addVertex(3, 1)
+	g.addVertex(7, 1)
+	g.addVertex(4, 2)
+	g.addVertex(5, 2)
+	g.addVertex(8, 7)
+	g.KhanSort()
 }
-
