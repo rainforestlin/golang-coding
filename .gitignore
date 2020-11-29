@@ -10,3 +10,4 @@ rabbitmqDemo/.idea
 *.ini
 linkedList/.idea
 .idea
+.vscode

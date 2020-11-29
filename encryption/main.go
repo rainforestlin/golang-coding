@@ -3,7 +3,8 @@ package main
 import (
 	"encoding/base64"
 	"fmt"
-	"golang-coding/encryption/encyto/aesCrypto"
+
+	"github.com/julianlee107/learning/encryption/encyto/aesCrypto"
 )
 
 func main() {
@@ -21,6 +22,12 @@ func main() {
 	resultStr := aesCrypto.Base64AES(result)
 	fmt.Println(resultStr)
 	resultByte, err := base64.StdEncoding.DecodeString(resultStr)
+	if err != nil {
+		panic(err)
+	}
 	anoterStr, err := aesCrypto.AESDecrypt(resultByte, Key)
+	if err != nil {
+		panic(err)
+	}
 	fmt.Println(string(anoterStr))
 }
