@@ -11,11 +11,7 @@ import (
 //go的设计认为：如果一个P的goroutine队列在顺序执行的时候，因为go sched会有很多抢占或者调度，那么从被执行的概率上来分析的话，放入一个next位置可使得每个goroutine的执行效率相当
 func main() {
 	runtime.GOMAXPROCS(1)
-	for i := 0; i < 10; i++ {
-		go func() {
-			fmt.Println(i)
-		}()
-	}
+	LoopOne()
 	runtime.Gosched()
 	time.Sleep(time.Second)
 }
