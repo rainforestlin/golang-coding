@@ -5,17 +5,21 @@ import (
 	"sync"
 	"time"
 )
+
 var max int64
 var mutex *sync.Mutex
+
 func CollatzOrbits(n int64, ch chan bool) {
 	if n == 1 {
 		ch <- true
 		return
 	}
-	
-	if n >=max {
+	if n >= max {
+		mutex.Lock()
 		max = n
-	} 
+		mutex.Unlock()
+	}
+
 	if n%2 == 0 {
 		CollatzOrbits(n/2, ch)
 	} else {
@@ -25,16 +29,19 @@ func CollatzOrbits(n int64, ch chan bool) {
 
 func main() {
 	ch := make(chan bool)
-	i:= int64(1)
-	max = 1
-cont :for  {
+	i := int64(1)
+
+	mutex = new(sync.Mutex)
+cont:
+	for {
 
 		go func() {
+			max = 1
 			CollatzOrbits(i, ch)
 		}()
 		select {
-		case  <-ch:
-			fmt.Println(max)
+		case <-ch:
+			fmt.Printf("num:%d max:%d \n", i, max)
 			i++
 			goto cont
 		case <-time.After(3 * time.Second):
@@ -45,7 +52,7 @@ cont :for  {
 
 		}
 	}
-forEnd :
+forEnd:
 	fmt.Println("xxxx")
 
 }
