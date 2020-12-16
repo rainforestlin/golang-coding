@@ -29,7 +29,7 @@ func CollatzOrbits(n int64, ch chan bool) {
 }
 
 func main() {
-	ch := make(chan bool,1)
+	ch := make(chan bool, 1)
 	i := int64(1)
 	ch <- false
 	mutex = new(sync.Mutex)
@@ -40,22 +40,22 @@ cont:
 			CollatzOrbits(i, ch)
 		}()
 		select {
-		case ok:= <-ch:
-			if ok{
+		case ok := <-ch:
+			if ok {
 				fmt.Printf("num:%d max:%d \n", i, max)
 				i++
-			goto cont
-			}else{
+				goto cont
+			} else {
 				fmt.Printf("%d has an error\n", i)
-			fmt.Println(<-ch)
+				fmt.Println(<-ch)
 			}
-			
+
 		case <-time.After(3 * time.Second):
 			fmt.Printf("%d has a time out", i)
 			goto forEnd
 		}
-forEnd:
-	fmt.Println("xxxx")
+	forEnd:
+		fmt.Println("xxxx")
 
-}
+	}
 }
