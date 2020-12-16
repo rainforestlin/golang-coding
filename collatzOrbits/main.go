@@ -7,6 +7,7 @@ import (
 )
 
 var max int64
+
 var mutex *sync.Mutex
 
 func CollatzOrbits(n int64, ch chan bool) {
@@ -28,31 +29,33 @@ func CollatzOrbits(n int64, ch chan bool) {
 }
 
 func main() {
-	ch := make(chan bool)
+	ch := make(chan bool,1)
 	i := int64(1)
-
+	ch <- false
 	mutex = new(sync.Mutex)
 cont:
 	for {
-
 		go func() {
 			max = 1
 			CollatzOrbits(i, ch)
 		}()
 		select {
-		case <-ch:
-			fmt.Printf("num:%d max:%d \n", i, max)
-			i++
+		case ok:= <-ch:
+			if ok{
+				fmt.Printf("num:%d max:%d \n", i, max)
+				i++
 			goto cont
+			}else{
+				fmt.Printf("%d has an error\n", i)
+			fmt.Println(<-ch)
+			}
+			
 		case <-time.After(3 * time.Second):
 			fmt.Printf("%d has a time out", i)
 			goto forEnd
-		default:
-			fmt.Printf("%d has an error\n", i)
-
 		}
-	}
 forEnd:
 	fmt.Println("xxxx")
 
+}
 }
