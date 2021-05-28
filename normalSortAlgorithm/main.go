@@ -1,12 +1,12 @@
 package main
 
+import (
+	"container/heap"
+	"fmt"
+)
+
 func main() {
-	g := NewGraph(8)
-	g.addVertex(2, 1)
-	g.addVertex(3, 1)
-	g.addVertex(7, 1)
-	g.addVertex(4, 2)
-	g.addVertex(5, 2)
-	g.addVertex(8, 7)
-	g.KhanSort()
+	h := &IntHeap{100, 23, 45, 76, 2, 52, 6674, 2342, 34, 56, 23}
+	heap.Init(h)
+	fmt.Println(h.Sort())
 }

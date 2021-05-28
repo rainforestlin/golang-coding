@@ -44,20 +44,20 @@ func main() {
 	wg.Add(5)
 	num := 0
 	for i := 0; i < 5; i++ {
-		num ++ 
-	//  go func(num int) {
-	//   defer wg.Done()
-	//   fmt.Printf("goroutine %d,print %d \n",num,i)
-	//  }(num)
-	// }	 
-	go func() {
-	  defer wg.Done()
-	  fmt.Printf("goroutine %d,print %d \n",num,i)
-	 }()
+
+		//  go func(num int) {
+		//   defer wg.Done()
+		//   fmt.Printf("goroutine %d,print %d \n",num,i)
+		//  }(num)
+		// }
+		go func(i int) {
+			defer wg.Done()
+			num++
+			fmt.Printf("goroutine %d,print %d \n", num, i)
+		}(i)
 	}
 	wg.Wait()
-   }
-
+}
 
 /**
 其本质还是创建 goroutine 与真正执行 fmt.Println 并不同步。因此很有可能在你执行 fmt.Println 时，循环 for-loop 已经运行完毕，因此变量 i 的值最终变成了 5。
@@ -72,7 +72,7 @@ func main() {
 // 	 go func(i int,num int) {
 // 	  defer wg.Done()
 // 	  fmt.Printf("goroutine %d,print %d \n",num,i)
-	   
+
 // 	 }(i,num)
 // 	}
 // 	wg.Wait()
