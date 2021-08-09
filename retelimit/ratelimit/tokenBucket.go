@@ -1,15 +1,18 @@
-package retelimit
+package ratelimit
 
 import (
 	"sync"
 	"time"
 )
 
-// 令牌桶算法
+// TokenBucket 令牌桶
+// 一个固定的桶，桶里存放着令牌（token）。一开始桶是空的，
+// 系统按固定的时间（rate）往桶里添加令牌，直到桶里的令牌数满，
+// 多余的请求会被丢弃。当请求来的时候，从桶里移除一个令牌，如果桶是空的则拒绝请求或者阻塞
 type TokenBucket struct {
-	rate         int64
-	capacity     int64
-	tokens       int64
+	rate         int64 // 投放速率 个/每秒
+	capacity     int64 // 可装令牌数
+	tokens       int64 // 令牌数
 	lastTokenSec int64
 	lock         sync.Mutex
 }
